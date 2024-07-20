@@ -89,8 +89,8 @@ const LoginPage = () => {
                     Password
                   </Label>
                   <Link
-                    to=""
-                    className="ml-auto inline-block text-xs md:text-sm"
+                    to={"/forgot-password"}
+                    className="ml-auto inline-block text-xs md:text-sm font-semibold hover:text-rose-600 transition duration-100 ease-in-out"
                   >
                     Forgot your password?
                   </Link>
@@ -109,7 +109,9 @@ const LoginPage = () => {
                     onClick={togglePassword}
                     className="absolute top-1/2 right-4 transform -translate-y-1/2 flex items-center justify-center cursor-pointer text-gray-700"
                   >
-                    {isShow ? <Eye size={20} /> : <EyeOff size={20} />}
+                    {password && (
+                      <>{isShow ? <Eye size={20} /> : <EyeOff size={20} />}</>
+                    )}
                   </div>
                 </div>
               </div>

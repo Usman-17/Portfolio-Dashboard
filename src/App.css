@@ -1,5 +1,9 @@
+body {
+  font-family: "poppins", sans-serif;
+}
+
 ::-webkit-scrollbar {
-  width: 15px;
+  width: 8px;
 }
 ::-webkit-scrollbar-track {
   background: #d1e5ff;
@@ -9,11 +13,14 @@
   border-radius: 7px;
 }
 
+
+
+
 .avatar-update-btn::file-selector-button {
   width: 100%;
   padding: 7px;
   font-weight: 600;
-  border-radius: 8px;
+  border-radius: 4px;
   border: 1px solid hsl(222.2 47.4% 11.2%);
   background: hsl(222.2 47.4% 11.2%);
   cursor: pointer;
@@ -21,5 +28,5 @@
 }
 .avatar-update-btn::file-selector-button:hover {
   background: transparent;
-  color: hsl(222.2 47.4% 11.2%);
+  color: #111;
 }

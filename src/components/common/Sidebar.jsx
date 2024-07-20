@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 // imports End
 
-const DashboardSidebar = () => {
+const Sidebar = () => {
   const [active, setActive] = useState("");
   const { logoutMutation } = useLogout();
 
@@ -24,13 +24,16 @@ const DashboardSidebar = () => {
       <aside className="fixed inset-y-0 left-0 hidden w-14 flex-col border-r bg-background sm:flex z-50">
         {/* Top Icon */}
         <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
-          <Link className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base mb-4">
+          <Link
+            to={"/"}
+            className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base mb-4"
+          >
             <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
             <span className="sr-only">Acme Inc</span>
           </Link>
 
           <Link
-            to="/dashboard"
+            to="/"
             onClick={() => setActive("Dashboard")}
             aria-label="Dashboard"
             className={`flex h-10 w-10 items-center justify-center rounded-lg transition-colors ${
@@ -104,6 +107,7 @@ const DashboardSidebar = () => {
           </Link>
 
           <Link
+            to={"/profile"}
             className={`flex h-9 w-9 items-center justify-center rounded-lg ${
               active === "Account"
                 ? "text-accent-foreground bg-accent"
@@ -127,4 +131,4 @@ const DashboardSidebar = () => {
   );
 };
 
-export default DashboardSidebar;
+export default Sidebar;

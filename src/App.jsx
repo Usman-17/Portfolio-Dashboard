@@ -1,3 +1,5 @@
+import "./App.css";
+
 import { Toaster } from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
@@ -8,6 +10,9 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/Auth/LoginPage";
 import ForgotPasswordPage from "./pages/Auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/Auth/ResetPasswordPage";
+import Sidebar from "./components/common/Sidebar";
+import Header from "./components/common/Header";
+import ProfileLayout from "./pages/Profile/ProfileLayout";
 // Imports End
 
 const App = () => {
@@ -43,26 +48,46 @@ const App = () => {
   return (
     <>
       <BrowserRouter>
+        {authUser && (
+          <>
+            <Sidebar />
+            <Header />
+          </>
+        )}
+
         <Routes>
           <Route
             path="/"
             element={authUser ? <HomePage /> : <Navigate to="/login" />}
           />
-          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+
           <Route
-            path="/reset-password/:token"
-            element={<ResetPasswordPage />}
+            path="/profile"
+            element={authUser ? <ProfileLayout /> : <Navigate to="/login" />}
           />
 
+          {/* Auth */}
           <Route
             path="/login"
             element={!authUser ? <LoginPage /> : <Navigate to="/" />}
+          />
+
+          <Route
+            path="/forgot-password"
+            element={
+              !authUser ? <ForgotPasswordPage /> : <Navigate to="/login" />
+            }
+          />
+          <Route
+            path="/reset-password/:token"
+            element={
+              !authUser ? <ResetPasswordPage /> : <Navigate to="/login" />
+            }
           />
         </Routes>
 
         <Toaster
           toastOptions={{
-            duration: 1600,
             style: {
               background: "#363636",
               color: "#f3f3f3",
