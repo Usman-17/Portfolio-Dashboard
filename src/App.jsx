@@ -13,6 +13,8 @@ import ResetPasswordPage from "./pages/Auth/ResetPasswordPage";
 import Sidebar from "./components/common/Sidebar";
 import Header from "./components/common/Header";
 import ProfileLayout from "./pages/Profile/ProfileLayout";
+import EnquiryDetailsPage from "./pages/Enquiry/EnquiryDetailsPage";
+import EnquiryListPage from "./pages/Enquiry/EnquiryListPage";
 // Imports End
 
 const App = () => {
@@ -64,6 +66,17 @@ const App = () => {
           <Route
             path="/profile"
             element={authUser ? <ProfileLayout /> : <Navigate to="/login" />}
+          />
+
+          <Route
+            path="/enquiries/:id"
+            element={
+              authUser ? <EnquiryDetailsPage /> : <Navigate to="/login" />
+            }
+          />
+          <Route
+            path="/enquiries"
+            element={authUser ? <EnquiryListPage /> : <Navigate to="/login" />}
           />
 
           {/* Auth */}

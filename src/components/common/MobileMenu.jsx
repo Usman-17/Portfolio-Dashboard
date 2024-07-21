@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import useLogout from "@/hooks/useLogout";
-
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import {
@@ -10,21 +8,32 @@ import {
   History,
   Home,
   LayoutGrid,
-  LogOut,
   Menu,
   MessageSquareMore,
   Package2,
   PencilRuler,
-  User,
 } from "lucide-react";
-// Imports End
+
+const navItems = [
+  { name: "Dashboard", icon: Home, path: "/dashboard" },
+  { name: "Add Project", icon: FolderGit, path: "/add-project" },
+  { name: "Add Skill", icon: PencilRuler, path: "/add-skill" },
+  { name: "Add Uses", icon: LayoutGrid, path: "/add-uses" },
+  { name: "Timeline", icon: History, path: "/timeline" },
+  { name: "Enquiries", icon: MessageSquareMore, path: "/enquiries" },
+];
 
 const MobileMenu = () => {
   const [active, setActive] = useState("");
-  const { logoutMutation } = useLogout();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleLinkClick = (name) => {
+    setActive(name);
+    setIsOpen(false);
+  };
 
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button
           size="icon"
@@ -39,10 +48,7 @@ const MobileMenu = () => {
 
       <SheetContent side="bottom" className="sm:max-w-xs">
         <nav className="grid gap-5 text-md font-medium">
-          {/* Top Icon */}
           <Link
-            to="#"
-            onClick={() => setActive("Acme Inc")}
             aria-label="Acme Inc"
             className={`group flex h-10 w-10 items-center justify-center gap-2 ml-[-12px] rounded-full transition-colors ${
               active === "Acme Inc"
@@ -54,108 +60,22 @@ const MobileMenu = () => {
             <span className="sr-only">Acme Inc</span>
           </Link>
 
-          {/* Dashboard */}
-          <Link
-            to="/dashboard" // Update with your actual route
-            onClick={() => setActive("Dashboard")}
-            aria-label="Dashboard"
-            className={`flex items-center gap-4 px-1 ${
-              active === "Dashboard"
-                ? "text-foreground"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <Home className="h-5 w-5" />
-            Dashboard
-          </Link>
-          <Link
-            to="/add-project" // Update with your actual route
-            className={`flex items-center gap-4 px-1 ${
-              active === "Add Project"
-                ? "text-foreground"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-            onClick={() => setActive("Add Project")}
-            aria-label="Add Project"
-          >
-            <FolderGit className="h-5 w-5" />
-            Add Project
-          </Link>
-          <Link
-            to="/add-skill" // Update with your actual route
-            className={`flex items-center gap-4 px-1 ${
-              active === "Add Skill"
-                ? "text-foreground"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-            onClick={() => setActive("Add Skill")}
-            aria-label="Add Skill"
-          >
-            <PencilRuler className="h-5 w-5" />
-            Add Skill
-          </Link>
-          <Link
-            to="/add-uses" // Update with your actual route
-            className={`flex items-center gap-4 px-1 ${
-              active === "Add Uses"
-                ? "text-foreground"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-            onClick={() => setActive("Add Uses")}
-            aria-label="Add Uses"
-          >
-            <LayoutGrid className="h-5 w-5" />
-            Add Uses
-          </Link>
-          <Link
-            to="/profile" // Update with your actual route
-            className={`flex items-center gap-4 px-1 ${
-              active === "Profile"
-                ? "text-foreground"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-            onClick={() => setActive("Profile")}
-            aria-label="Profile"
-          >
-            <User className="h-5 w-5" />
-            Profile
-          </Link>
-          <Link
-            to="/timeline" // Update with your actual route
-            className={`flex items-center gap-4 px-1 ${
-              active === "Timeline"
-                ? "text-foreground"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-            onClick={() => setActive("Timeline")}
-            aria-label="Timeline"
-          >
-            <History className="h-5 w-5" />
-            Timeline
-          </Link>
-
-          <Link
-            to="/messages" // Update with your actual route
-            className={`flex items-center gap-4 px-1 ${
-              active === "Messages"
-                ? "text-foreground"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-            onClick={() => setActive("Messages")}
-            aria-label="Messages"
-          >
-            <MessageSquareMore className="h-5 w-5" />
-            Messages
-          </Link>
-          <Link
-            to="/logout" // Update with your actual route
-            className="flex items-center gap-4 px-1 text-muted-foreground hover:text-foreground"
-            aria-label="Logout"
-            onClick={() => logoutMutation()}
-          >
-            <LogOut className="h-5 w-5" />
-            Logout
-          </Link>
+          {navItems.map(({ name, icon: Icon, path }) => (
+            <Link
+              key={name}
+              to={path}
+              onClick={() => handleLinkClick(name)}
+              aria-label={name}
+              className={`flex items-center gap-4 px-1 ${
+                active === name
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              <Icon className="h-5 w-5" />
+              {name}
+            </Link>
+          ))}
         </nav>
       </SheetContent>
     </Sheet>
