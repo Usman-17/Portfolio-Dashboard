@@ -15,6 +15,7 @@ import Header from "./components/common/Header";
 import ProfileLayout from "./pages/Profile/ProfileLayout";
 import EnquiryDetailsPage from "./pages/Enquiry/EnquiryDetailsPage";
 import EnquiryListPage from "./pages/Enquiry/EnquiryListPage";
+import AddTimelinePage from "./pages/Timeline/AddTimelinePage";
 // Imports End
 
 const App = () => {
@@ -68,12 +69,20 @@ const App = () => {
             element={authUser ? <ProfileLayout /> : <Navigate to="/login" />}
           />
 
+          {/* Timeline */}
+          <Route
+            path="/timeline/add"
+            element={authUser ? <AddTimelinePage /> : <Navigate to="/login" />}
+          />
+
+          {/* Enquiries */}
           <Route
             path="/enquiries/:id"
             element={
               authUser ? <EnquiryDetailsPage /> : <Navigate to="/login" />
             }
           />
+
           <Route
             path="/enquiries"
             element={authUser ? <EnquiryListPage /> : <Navigate to="/login" />}

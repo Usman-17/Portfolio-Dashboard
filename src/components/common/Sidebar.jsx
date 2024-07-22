@@ -18,7 +18,7 @@ const navItems = [
   { name: "Add Project", icon: FolderGit },
   { name: "Add Skill", icon: PencilRuler },
   { name: "Add Uses", icon: LayoutGrid },
-  { name: "Add Timeline", icon: History },
+  { name: "Add Timeline", icon: History, path: "/timeline/add" },
   { name: "Enquires", icon: MessageSquareMore, path: "/enquiries" },
   { name: "Account", icon: User, path: "/profile" },
 ];
