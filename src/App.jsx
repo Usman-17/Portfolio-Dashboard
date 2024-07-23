@@ -16,6 +16,7 @@ import ProfileLayout from "./pages/Profile/ProfileLayout";
 import EnquiryDetailsPage from "./pages/Enquiry/EnquiryDetailsPage";
 import EnquiryListPage from "./pages/Enquiry/EnquiryListPage";
 import AddTimelinePage from "./pages/Timeline/AddTimelinePage";
+import AddSkillPage from "./pages/Skill/AddSkillPage";
 // Imports End
 
 const App = () => {
@@ -69,6 +70,11 @@ const App = () => {
             element={authUser ? <ProfileLayout /> : <Navigate to="/login" />}
           />
 
+          {/* Skill */}
+          <Route
+            path="/skill/add"
+            element={authUser ? <AddSkillPage /> : <Navigate to="/login" />}
+          />
           {/* Timeline */}
           <Route
             path="/timeline/add"

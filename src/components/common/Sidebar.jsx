@@ -16,7 +16,7 @@ import {
 const navItems = [
   { name: "Dashboard", icon: Home, path: "/" },
   { name: "Add Project", icon: FolderGit },
-  { name: "Add Skill", icon: PencilRuler },
+  { name: "Add Skill", icon: PencilRuler, path: "/skill/add" },
   { name: "Add Uses", icon: LayoutGrid },
   { name: "Add Timeline", icon: History, path: "/timeline/add" },
   { name: "Enquires", icon: MessageSquareMore, path: "/enquiries" },
