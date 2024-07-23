@@ -4,8 +4,7 @@ import useLogout from "@/hooks/useLogout";
 import {
   FolderGit,
   History,
-  Home,
-  LayoutGrid,
+  LayoutDashboard,
   LogOut,
   MessageSquareMore,
   Package2,
@@ -14,10 +13,9 @@ import {
 } from "lucide-react";
 
 const navItems = [
-  { name: "Dashboard", icon: Home, path: "/" },
-  { name: "Add Project", icon: FolderGit },
+  { name: "Dashboard", icon: LayoutDashboard, path: "/" },
+  { name: "Add Project", icon: FolderGit, path: "/project/add" },
   { name: "Add Skill", icon: PencilRuler, path: "/skill/add" },
-  { name: "Add Uses", icon: LayoutGrid },
   { name: "Add Timeline", icon: History, path: "/timeline/add" },
   { name: "Enquires", icon: MessageSquareMore, path: "/enquiries" },
   { name: "Account", icon: User, path: "/profile" },
@@ -42,12 +40,12 @@ const Sidebar = () => {
         {navItems.map(({ name, icon: Icon, path }) => (
           <Link
             key={name}
-            to={path || "#"}
+            to={path}
             onClick={() => setActive(name)}
             className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors ${
               active === name
-                ? "bg-accent text-accent-foreground"
-                : "bg-muted text-muted-foreground hover:text-foreground"
+                ? "bg-muted text-accent-foreground"
+                : "text-muted-foreground hover:text-foreground"
             } md:h-8 md:w-8`}
           >
             <Icon className="h-5 w-5" />
@@ -56,7 +54,7 @@ const Sidebar = () => {
         ))}
       </nav>
 
-      <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
+      <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5 mb-1">
         <button
           className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
           onClick={() => logoutMutation()}

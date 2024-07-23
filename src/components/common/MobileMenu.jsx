@@ -6,7 +6,6 @@ import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import {
   FolderGit,
   History,
-  Home,
   LayoutGrid,
   Menu,
   MessageSquareMore,
@@ -15,10 +14,9 @@ import {
 } from "lucide-react";
 
 const navItems = [
-  { name: "Dashboard", icon: Home, path: "/dashboard" },
-  { name: "Add Project", icon: FolderGit, path: "/add-project" },
+  { name: "Dashboard", icon: LayoutGrid, path: "/dashboard" },
+  { name: "Add Project", icon: FolderGit, path: "/project/add" },
   { name: "Add Skill", icon: PencilRuler, path: "/skill/add" },
-  { name: "Add Uses", icon: LayoutGrid, path: "/add-uses" },
   { name: "Timeline", icon: History, path: "/timeline/add" },
   { name: "Enquiries", icon: MessageSquareMore, path: "/enquiries" },
 ];
