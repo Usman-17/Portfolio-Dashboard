@@ -6,7 +6,6 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import PreLoader from "./components/common/PreLoader";
 // Pages
-import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/Auth/LoginPage";
 import ForgotPasswordPage from "./pages/Auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/Auth/ResetPasswordPage";
@@ -18,6 +17,8 @@ import EnquiryListPage from "./pages/Enquiry/EnquiryListPage";
 import AddTimelinePage from "./pages/Timeline/AddTimelinePage";
 import AddSkillPage from "./pages/Skill/AddSkillPage";
 import AddProjectPage from "./pages/Project/AddProjectPage";
+import DashboardPage from "./pages/Dashboard/DashboardPage";
+import ManageSkillPage from "./pages/Skill/ManageSkillPage";
 // Imports End
 
 const App = () => {
@@ -63,7 +64,7 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={authUser ? <HomePage /> : <Navigate to="/login" />}
+            element={authUser ? <DashboardPage /> : <Navigate to="/login" />}
           />
 
           <Route
@@ -82,6 +83,16 @@ const App = () => {
             path="/skill/add"
             element={authUser ? <AddSkillPage /> : <Navigate to="/login" />}
           />
+          <Route
+            path="/skill/edit/:id"
+            element={authUser ? <AddSkillPage /> : <Navigate to="/login" />}
+          />
+
+          <Route
+            path="/skill/manage"
+            element={authUser ? <ManageSkillPage /> : <Navigate to="/login" />}
+          />
+
           {/* Timeline */}
           <Route
             path="/timeline/add"

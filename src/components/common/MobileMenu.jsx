@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 
 const navItems = [
-  { name: "Dashboard", icon: LayoutGrid, path: "/dashboard" },
+  { name: "Dashboard", icon: LayoutGrid, path: "/" },
   { name: "Add Project", icon: FolderGit, path: "/project/add" },
   { name: "Add Skill", icon: PencilRuler, path: "/skill/add" },
   { name: "Timeline", icon: History, path: "/timeline/add" },
