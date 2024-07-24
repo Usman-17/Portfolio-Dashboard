@@ -177,7 +177,7 @@ const DashboardPage = () => {
               </p>
             </div>
 
-            <Link to="/" className="w-fit">
+            <Link to="/skill/manage" className="w-fit">
               <Button className="gap-2 text-xs sm:text-sm">
                 <TrendingUp size={18} />
                 Manage Skills
@@ -211,7 +211,7 @@ const DashboardPage = () => {
           </CardContent>
         </Card>
 
-        
+
         {/* Timeline */}
         <Card>
           <CardHeader className="flex gap-2 sm:justify-between sm:flex-row sm:items-center">
