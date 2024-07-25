@@ -19,6 +19,7 @@ import AddSkillPage from "./pages/Skill/AddSkillPage";
 import AddProjectPage from "./pages/Project/AddProjectPage";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
 import ManageSkillPage from "./pages/Skill/ManageSkillPage";
+import ManageTimelinePage from "./pages/Timeline/ManageTimelinePage";
 // Imports End
 
 const App = () => {
@@ -83,6 +84,7 @@ const App = () => {
             path="/skill/add"
             element={authUser ? <AddSkillPage /> : <Navigate to="/login" />}
           />
+
           <Route
             path="/skill/edit/:id"
             element={authUser ? <AddSkillPage /> : <Navigate to="/login" />}
@@ -97,6 +99,18 @@ const App = () => {
           <Route
             path="/timeline/add"
             element={authUser ? <AddTimelinePage /> : <Navigate to="/login" />}
+          />
+
+          <Route
+            path="/timeline/edit/:id"
+            element={authUser ? <AddTimelinePage /> : <Navigate to="/login" />}
+          />
+
+          <Route
+            path="/timeline/manage"
+            element={
+              authUser ? <ManageTimelinePage /> : <Navigate to="/login" />
+            }
           />
 
           {/* Enquiries */}
@@ -136,7 +150,7 @@ const App = () => {
           toastOptions={{
             style: {
               background: "#363636",
-              color: "#f3f3f3",
+              color: "#fffbfb",
               fontFamily: "poppins",
               fontSize: "12px",
             },

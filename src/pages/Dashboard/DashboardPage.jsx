@@ -211,7 +211,6 @@ const DashboardPage = () => {
           </CardContent>
         </Card>
 
-
         {/* Timeline */}
         <Card>
           <CardHeader className="flex gap-2 sm:justify-between sm:flex-row sm:items-center">
@@ -222,7 +221,7 @@ const DashboardPage = () => {
               </p>
             </div>
 
-            <Link to="/dashboard" className="w-fit">
+            <Link to="/timeline/manage" className="w-fit">
               <Button className="gap-2 text-xs sm:text-sm">
                 <TrendingUp size={18} />
                 Manage Timeline
@@ -245,20 +244,25 @@ const DashboardPage = () => {
                   timelines.slice(0, 5).map((timeline, index) => (
                     <TableRow key={timeline._id} className="hover:bg-gray-100">
                       <TableCell>{index + 1}</TableCell>
+
                       <TableCell className="max-w-[140px] overflow-hidden text-ellipsis whitespace-nowrap">
                         {timeline.title}
                       </TableCell>
+
                       <TableCell className="max-w-[140px] overflow-hidden text-ellipsis whitespace-nowrap">
                         {timeline?.description}
                       </TableCell>
+
                       <TableCell className="max-w-[140px] overflow-hidden text-ellipsis whitespace-nowrap">
                         {timeline?.timeline.from}
                       </TableCell>
+
                       <TableCell className="max-w-[140px] overflow-hidden text-ellipsis whitespace-nowrap">
                         {timeline?.timeline?.to
                           ? timeline.timeline.to
                           : "Present"}
                       </TableCell>
+                      
                     </TableRow>
                   ))
                 ) : (

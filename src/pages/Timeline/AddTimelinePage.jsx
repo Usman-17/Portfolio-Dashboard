@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Undo } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
 // Imports End
@@ -24,6 +24,27 @@ const AddTimelinePage = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
+  useEffect(() => {
+    if (id) {
+      const fetchTimeline = async () => {
+        const res = await fetch(`/api/v1/timeline/${id}`);
+        const data = await res.json();
+
+        if (!res.ok)
+          throw new Error(data.error || "Failed to fetch timeline data");
+
+        setFormData({
+          title: data?.title || "",
+          description: data?.description || "",
+          from: data.timeline?.from || "",
+          to: data.timeline?.to || "",
+        });
+      };
+
+      fetchTimeline();
+    }
+  }, [id]);
+
   const {
     mutate: saveTimeline,
     isPending,
@@ -39,7 +60,7 @@ const AddTimelinePage = () => {
       const res = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, description, from, to }),
+        body: JSON.stringify({ title, description, from, to: to || null }),
       });
 
       const data = await res.json();
@@ -58,7 +79,7 @@ const AddTimelinePage = () => {
         } successfully`
       );
 
-      navigate("/dashboard");
+      navigate("/timeline/manage");
     },
 
     onError: () => {
@@ -77,12 +98,12 @@ const AddTimelinePage = () => {
 
   return (
     <AnimationWrapper
-      initial={{ y: 5 }}
+      initial={{ y: 3 }}
       animate={{ y: 0 }}
-      exit={{ opacity: 0, y: -5 }}
+      exit={{ opacity: 0, y: -3 }}
       transition={{ duration: 0.3 }}
     >
-      <main className="flex min-h-screen flex-1 flex-col gap-4 bg-muted/60 md:gap-8 py-4 sm:py-10 px-1 sm:px-20">
+      <main className="flex sm:min-h-screen flex-1 flex-col gap-4 bg-muted/60 md:gap-8 py-0 sm:py-7 px-0 sm:px-20">
         <Card className="py-3">
           <CardHeader className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 pb-10">
             <div>
@@ -94,10 +115,10 @@ const AddTimelinePage = () => {
               </p>
             </div>
 
-            <Link to="/dashboard" className="w-fit">
+            <Link to="/timeline/manage" className="w-fit">
               <Button className="gap-2 text-xs sm:text-sm">
                 <Undo size={18} />
-                Back to Dashboard
+                Manage Timeline
               </Button>
             </Link>
           </CardHeader>
@@ -134,7 +155,9 @@ const AddTimelinePage = () => {
                 <div className="grid gap-2">
                   <Label className="text-gray-700">Start Date</Label>
                   <Input
+                    type="text"
                     name="from"
+                    required
                     value={formData.from}
                     onChange={handleInputChange}
                   />
@@ -145,12 +168,12 @@ const AddTimelinePage = () => {
                   <Input
                     type="text"
                     name="to"
-                    required
                     value={formData.to}
                     onChange={handleInputChange}
                   />
                 </div>
               </div>
+
               {isError && <div className="text-red-500">{error.message}</div>}
 
               <div className="mt-2 sm:mt-3">
