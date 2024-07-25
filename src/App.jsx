@@ -20,6 +20,8 @@ import AddProjectPage from "./pages/Project/AddProjectPage";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
 import ManageSkillPage from "./pages/Skill/ManageSkillPage";
 import ManageTimelinePage from "./pages/Timeline/ManageTimelinePage";
+import ManageProjectPage from "./pages/Project/ManageProjectPage";
+import ViewProjectPage from "./pages/Project/ViewProjectPage";
 // Imports End
 
 const App = () => {
@@ -77,6 +79,20 @@ const App = () => {
           <Route
             path="/project/add"
             element={authUser ? <AddProjectPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/project/edit/:id"
+            element={authUser ? <AddProjectPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/project/:id"
+            element={authUser ? <ViewProjectPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/project/manage"
+            element={
+              authUser ? <ManageProjectPage /> : <Navigate to="/login" />
+            }
           />
 
           {/* Skill */}

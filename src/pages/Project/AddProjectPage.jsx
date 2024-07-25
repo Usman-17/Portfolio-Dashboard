@@ -15,7 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select } from "@radix-ui/react-select";
 import { useMutation } from "@tanstack/react-query";
 import { ImageUp, Undo } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
@@ -35,6 +35,32 @@ const AddProjectPage = () => {
 
   const { id } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (id) {
+      const fetchSkill = async () => {
+        const res = await fetch(`/api/v1/project/${id}`);
+        const data = await res.json();
+
+        setFormData({
+          title: data.title || "",
+          description: data.description || "",
+          projectLink: data.projectLink || "",
+          gitRepoLink: data.gitRepoLink || "",
+          technologies: data.technologies || "",
+          stack: data.stack || "",
+          deployed: data.deployed || "",
+        });
+
+        if (data.projectImg) {
+          setProjectImgPreview(data.projectImg.url);
+        }
+      };
+
+      fetchSkill();
+    }
+  }, [id]);
+
   const {
     mutate: saveProject,
     isPending,
@@ -64,7 +90,7 @@ const AddProjectPage = () => {
       toast.success(
         `Project "${formData.title}" ${id ? "updated" : "created"} successfully`
       );
-      navigate("/dashboard");
+      navigate("/project/manage");
     },
 
     onError: () => {
@@ -100,7 +126,7 @@ const AddProjectPage = () => {
     const formDataToSend = new FormData();
 
     Object.entries(formData).forEach(([key, value]) => {
-      if (value !== null && value !== "") {
+      if (value || value === "") {
         formDataToSend.append(key, value);
       }
     });
@@ -126,10 +152,10 @@ const AddProjectPage = () => {
                 Fill out the details below to add a project
               </p>
             </div>
-            <Link to="/dashboard" className="w-fit">
+            <Link to="/project/manage" className="w-fit">
               <Button className="gap-2 text-xs sm:text-sm">
                 <Undo size={18} />
-                Back to Dashboard
+                Manage All Projects
               </Button>
             </Link>
           </CardHeader>
@@ -158,6 +184,7 @@ const AddProjectPage = () => {
                   name="description"
                   className="h-24 sm:h-32"
                   placeholder="Enter project description"
+                  required
                   value={formData.description}
                   onChange={handleInputChange}
                 />
@@ -194,7 +221,7 @@ const AddProjectPage = () => {
               {/* Technologies */}
               <div className="grid gap-2">
                 <Label className="text-gray-700">Technologies</Label>
-                <Input
+                <Textarea
                   id="technologies"
                   name="technologies"
                   type="text"
@@ -274,7 +301,7 @@ const AddProjectPage = () => {
                         type="file"
                         className="sr-only"
                         accept="image/*"
-                        required
+                        required={id ? false : true}
                         onChange={handleProjectImgChange}
                       />
                     </label>

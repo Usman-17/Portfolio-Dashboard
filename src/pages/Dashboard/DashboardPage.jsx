@@ -63,7 +63,7 @@ const DashboardPage = () => {
                 </CardTitle>
               </CardHeader>
               <CardFooter>
-                <Link to={"/"}>
+                <Link to="/project/manage">
                   <Button className="text-xs sm:text-sm">
                     Manage Projects
                   </Button>
@@ -99,7 +99,7 @@ const DashboardPage = () => {
               </p>
             </div>
 
-            <Link to="/dashboard" className="w-fit">
+            <Link to="/project/manage" className="w-fit">
               <Button className="gap-2 text-xs sm:text-sm">
                 <TrendingUp size={18} />
                 Manage Projects
@@ -108,47 +108,64 @@ const DashboardPage = () => {
           </CardHeader>
 
           <CardContent>
-            {projectIsLoading ? (
-              <Table>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Sr.</TableHead>
+                  <TableHead>Title</TableHead>
+                  <TableHead>Stack</TableHead>
+                  <TableHead>Deployed</TableHead>
+                  <TableHead>Posted At</TableHead>
+                </TableRow>
+              </TableHeader>
+
+              {projectIsLoading ? (
                 <TableBody>
-                  <TableRow>
-                    <TableCell colSpan={5}>
-                      <div className="flex flex-col gap-5">
-                        <Skeleton height="40px" className="mb-3" />
-                        <Skeleton height="40px" className="mb-3" />
-                        <Skeleton height="40px" className="mb-3" />
-                        <Skeleton height="40px" className="mb-3" />
-                        <Skeleton height="40px" className="mb-3" />
-                      </div>
-                    </TableCell>
-                  </TableRow>
+                  {[...Array(5)].map((_, index) => (
+                    <TableRow key={index}>
+                      <TableCell>
+                        <Skeleton className="h-5 w-full" />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton className="h-8 w-8" />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton className="h-5 w-full" />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton className="h-5 w-full" />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton className="h-5 w-full" />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton className="h-5 w-full" />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton className="h-5 w-full" />
+                      </TableCell>
+                    </TableRow>
+                  ))}
                 </TableBody>
-              </Table>
-            ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Sr.</TableHead>
-                    <TableHead>Title</TableHead>
-                    <TableHead>Stack</TableHead>
-                    <TableHead>Deployed</TableHead>
-                    <TableHead>Posted At</TableHead>
-                  </TableRow>
-                </TableHeader>
+              ) : (
                 <TableBody>
                   {projects && projects.length > 0 ? (
                     projects.slice(0, 5).map((project, index) => (
                       <TableRow key={project._id} className="hover:bg-gray-100">
                         <TableCell>{index + 1}</TableCell>
+
                         <TableCell className="max-w-[140px] overflow-hidden text-ellipsis whitespace-nowrap">
                           {project.title}
                         </TableCell>
+
                         <TableCell className="uppercase">
                           {project.stack}
                         </TableCell>
+
                         <TableCell className="max-w-[140px] overflow-hidden text-ellipsis whitespace-nowrap">
                           {project.deployed}
                         </TableCell>
+
                         <TableCell className="max-w-[140px] overflow-hidden text-ellipsis whitespace-nowrap">
                           {moment(project.createdAt).format("DD, MMMM YYYY")}
                         </TableCell>
@@ -162,8 +179,8 @@ const DashboardPage = () => {
                     </TableRow>
                   )}
                 </TableBody>
-              </Table>
-            )}
+              )}
+            </Table>
           </CardContent>
         </Card>
 
@@ -262,7 +279,6 @@ const DashboardPage = () => {
                           ? timeline.timeline.to
                           : "Present"}
                       </TableCell>
-                      
                     </TableRow>
                   ))
                 ) : (
