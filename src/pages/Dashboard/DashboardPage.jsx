@@ -1,3 +1,12 @@
+import { Skeleton } from "@/components/ui/skeleton";
+import AnimationWrapper from "@/components/common/AnimationWrapper";
+
+import moment from "moment";
+import { Link } from "react-router-dom";
+import { TrendingUp, Undo } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -6,7 +15,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -15,15 +23,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useGetAllProjects } from "@/hooks/useGetAllProjects";
+
 import { useGetAllSkills } from "@/hooks/useGetAllSkills";
+import { useGetAllProjects } from "@/hooks/useGetAllProjects";
 import { useGetAllTimelines } from "@/hooks/useGetAllTimelines";
-import { useQuery } from "@tanstack/react-query";
-import { TrendingUp, Undo } from "lucide-react";
-import moment from "moment";
-import { Link } from "react-router-dom";
-import AnimationWrapper from "@/components/common/AnimationWrapper";
-import { Skeleton } from "@/components/ui/skeleton";
 // Imports End
 
 const DashboardPage = () => {

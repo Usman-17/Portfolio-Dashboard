@@ -1,18 +1,12 @@
 import {
   Cloud,
-  CreditCard,
+  Facebook,
   Github,
-  Keyboard,
-  LifeBuoy,
+  Instagram,
+  Linkedin,
   LogOut,
-  Mail,
-  MessageSquare,
-  Plus,
-  PlusCircle,
-  Settings,
+  Undo,
   User,
-  UserPlus,
-  Users,
 } from "lucide-react";
 
 import {
@@ -21,15 +15,12 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Link } from "react-router-dom";
+
 import useLogout from "@/hooks/useLogout";
 // imports End
 
@@ -44,13 +35,16 @@ const ProfileDropdown = ({ authUser }) => {
             "/avatar-placeholder.png"
           }
           alt="avatar"
-          className="w-12 h-12 rounded-full object-fill  border border-gray-300 p-0.5"
+          className="w-12 h-12 rounded-full object-cover border border-gray-300 p-0.5 transition-opacity duration-300 ease-in-out shadow-sm"
           loading="lazy"
+          decoding="async"
         />
       </DropdownMenuTrigger>
+
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
+
         <DropdownMenuGroup>
           <Link to={"/profile"}>
             <DropdownMenuItem>
@@ -59,70 +53,58 @@ const ProfileDropdown = ({ authUser }) => {
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </DropdownMenuItem>
           </Link>
-          <DropdownMenuItem>
-            <CreditCard className="mr-2 h-4 w-4" />
-            <span>Billing</span>
-            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Keyboard className="mr-2 h-4 w-4" />
-            <span>Keyboard shortcuts</span>
-            <DropdownMenuShortcut>⌘K</DropdownMenuShortcut>
-          </DropdownMenuItem>
+
+          <Link to={"/Portfolio"}>
+            <DropdownMenuItem>
+              <Undo className="mr-2 h-4 w-4" />
+              <span>Portfolio</span>
+            </DropdownMenuItem>
+          </Link>
         </DropdownMenuGroup>
+
         <DropdownMenuSeparator />
-        <DropdownMenuGroup>
+
+        {authUser.githubURL && (
           <DropdownMenuItem>
-            <Users className="mr-2 h-4 w-4" />
-            <span>Team</span>
+            <Github className="mr-2 h-4 w-4" />
+            <span>
+              <Link to={authUser.githubURL}>GitHub</Link>
+            </span>
           </DropdownMenuItem>
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger>
-              <UserPlus className="mr-2 h-4 w-4" />
-              <span>Invite users</span>
-            </DropdownMenuSubTrigger>
-            <DropdownMenuPortal>
-              <DropdownMenuSubContent>
-                <DropdownMenuItem>
-                  <Mail className="mr-2 h-4 w-4" />
-                  <span>Email</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <MessageSquare className="mr-2 h-4 w-4" />
-                  <span>Message</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <PlusCircle className="mr-2 h-4 w-4" />
-                  <span>More...</span>
-                </DropdownMenuItem>
-              </DropdownMenuSubContent>
-            </DropdownMenuPortal>
-          </DropdownMenuSub>
+        )}
+
+        {authUser.instagramURL && (
           <DropdownMenuItem>
-            <Plus className="mr-2 h-4 w-4" />
-            <span>New Team</span>
-            <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
+            <Instagram className="mr-2 h-4 w-4" />
+            <span>
+              <Link to={authUser.instagramURL}>Instagram</Link>
+            </span>
           </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Github className="mr-2 h-4 w-4" />
-          <span>GitHub</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <LifeBuoy className="mr-2 h-4 w-4" />
-          <span>Support</span>
-        </DropdownMenuItem>
+        )}
+
+        {authUser.facebookURL && (
+          <DropdownMenuItem>
+            <Facebook className="mr-2 h-4 w-4" />
+            <span>
+              <Link to={authUser.facebookURL}>Facebook</Link>
+            </span>
+          </DropdownMenuItem>
+        )}
+
+        {authUser.linkedInURL && (
+          <DropdownMenuItem>
+            <Linkedin className="mr-2 h-4 w-4" />
+            <span>
+              <Link to={authUser.linkedInURL}>LinkedIn</Link>
+            </span>
+          </DropdownMenuItem>
+        )}
+
         <DropdownMenuItem disabled>
           <Cloud className="mr-2 h-4 w-4" />
           <span>API</span>
         </DropdownMenuItem>
+
         <DropdownMenuSeparator />
 
         <DropdownMenuItem onClick={() => logoutMutation()}>

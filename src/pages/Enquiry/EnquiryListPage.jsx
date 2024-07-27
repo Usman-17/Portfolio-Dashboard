@@ -1,11 +1,12 @@
-import AnimationWrapper from "@/components/common/AnimationWrapper";
-import EnquirySkeleton from "@/components/skeletons/EnquirySkeleton";
+import { useState } from "react";
 
+import AnimationWrapper from "@/components/common/AnimationWrapper";
+
+import moment from "moment";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { Inbox, ScanSearch, Trash2, Undo } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -14,12 +15,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useGetAllEnquires } from "@/hooks/useGetAllEnquires";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import ConfirmDeleteDialog from "@/components/custom/ConfirmDeleteDialog";
-import { useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 // Imports End
 
 const EnquiryListPage = () => {
@@ -62,9 +64,14 @@ const EnquiryListPage = () => {
   };
 
   return (
-    <AnimationWrapper>
-      <main className="flex min-h-screen flex-1 flex-col gap-4 bg-muted/60 md:gap-8 py-4 sm:py-10 px-1 sm:px-20">
-        <Card className="py-3">
+    <AnimationWrapper
+      initial={{ y: 3 }}
+      animate={{ y: 0 }}
+      exit={{ opacity: 0, y: -3 }}
+      transition={{ duration: 0.3 }}
+    >
+      <main className="flex sm:min-h-screen flex-1 flex-col gap-4 bg-muted/60 md:gap-8 sm:py-7 sm:px-20">
+        <Card>
           <CardHeader className="flex gap-2 sm:justify-between sm:flex-row sm:items-center">
             <div>
               <CardTitle className="text-xl font-semibold">Enquiries</CardTitle>
@@ -80,30 +87,61 @@ const EnquiryListPage = () => {
               </Button>
             </Link>
           </CardHeader>
-          {isLoading ? (
-            <EnquirySkeleton />
-          ) : enquiries?.length > 0 ? (
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Sr.</TableHead>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Email</TableHead>
-                    <TableHead>Mobile</TableHead>
-                    <TableHead>Subject</TableHead>
-                    <TableHead>Comment</TableHead>
-                    <TableHead>Posted At</TableHead>
-                    <TableHead className="text-left">
-                      <span className="sr-only">Actions</span>
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Sr.</TableHead>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Email</TableHead>
+                  <TableHead>Mobile</TableHead>
+                  <TableHead>Subject</TableHead>
+                  <TableHead>Comment</TableHead>
+                  <TableHead>Posted At</TableHead>
+                  <TableHead className="text-left">
+                    <span className="sr-only">Actions</span>
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+
+              {isLoading ? (
                 <TableBody>
-                  {enquiries?.map((enquiry, index) => (
+                  {[...Array(3)].map((_, index) => (
+                    <TableRow key={index}>
+                      <TableCell>
+                        <Skeleton className="h-5 w-full" />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton className="h-8 w-full" />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton className="h-5 w-full" />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton className="h-5 w-full" />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton className="h-5 w-full" />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton className="h-5 w-full" />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton className="h-5 w-full" />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton className="h-5 w-full" />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              ) : enquiries.length > 0 ? (
+                <TableBody>
+                  {enquiries.map((enquiry, i) => (
                     <TableRow key={enquiry._id} className="hover:bg-gray-100">
-                      <TableCell>{index + 1}</TableCell>
-                      <TableCell className="font-medium w-full">
+                      <TableCell>{i + 1}</TableCell>
+
+                      <TableCell className="max-w-[170px] overflow-hidden text-ellipsis whitespace-nowrap font-medium">
                         {enquiry.name}
                       </TableCell>
 
@@ -121,18 +159,16 @@ const EnquiryListPage = () => {
                         {enquiry.comment}
                       </TableCell>
 
-                      <TableCell>
-                        {new Date(enquiry.createdAt).toLocaleString()}
+                      <TableCell className="max-w-[170px] overflow-hidden text-ellipsis whitespace-nowrap">
+                        {moment(enquiry.createdAt).format("DD, MMMM YYYY")}
                       </TableCell>
 
-                      {/* View */}
                       <TableCell>
                         <Link to={`/enquiries/${enquiry._id}`}>
                           <ScanSearch className="h-7 w-7 text-blue-500 hover:text-blue-600" />
                         </Link>
                       </TableCell>
 
-                      {/* Delete Enquiry Button*/}
                       <TableCell>
                         <Button
                           variant="outline"
@@ -145,14 +181,14 @@ const EnquiryListPage = () => {
                     </TableRow>
                   ))}
                 </TableBody>
-              </Table>
-            </CardContent>
-          ) : (
-            <CardContent className="text-center h-64 flex items-center justify-center gap-4">
-              <Inbox className="h-10 w-10 text-gray-500" />
-              <p className="text-gray-500">No enquiries available</p>
-            </CardContent>
-          )}
+              ) : (
+                <CardContent className="text-center h-64 flex items-center justify-center gap-4">
+                  <Inbox className="h-10 w-10 text-gray-500" />
+                  <p className="text-gray-500">No enquiries available</p>
+                </CardContent>
+              )}
+            </Table>
+          </CardContent>
         </Card>
       </main>
 

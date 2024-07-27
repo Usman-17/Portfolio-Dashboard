@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import { Undo } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
@@ -36,10 +34,6 @@ const ViewProjectPage = () => {
 
     retry: false,
   });
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   if (isError) {
     return (

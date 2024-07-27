@@ -34,7 +34,7 @@ const EnquiryDetailsPage = () => {
   }
 
   return (
-    <AnimationWrapper transition={{ duration: 0.3 }}>
+    <AnimationWrapper transition={{ duration: 0.2 }}>
       <main className="flex min-h-screen flex-1 flex-col gap-4 bg-muted/60 md:gap-8 py-4 sm:py-10 px-1 sm:px-20">
         <Card>
           <CardHeader className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 pb-10">

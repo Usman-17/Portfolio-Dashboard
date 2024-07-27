@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import AnimationWrapper from "@/components/common/AnimationWrapper";
 import ConfirmDeleteDialog from "@/components/custom/ConfirmDeleteDialog";
 
@@ -21,6 +19,7 @@ import { Pencil, Redo, Trash2 } from "lucide-react";
 
 import { useGetAllTimelines } from "@/hooks/useGetAllTimelines";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 // Imports End
 
 const ManageTimelinePage = () => {
@@ -62,10 +61,6 @@ const ManageTimelinePage = () => {
       setIsModalOpen(false);
     }
   };
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <AnimationWrapper transition={{ duration: 0.2 }}>

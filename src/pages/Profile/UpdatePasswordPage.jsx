@@ -90,7 +90,7 @@ const UpdatePasswordPage = () => {
   };
 
   return (
-    <div className="container mx-auto  px-0 sm:px-4 py-5 sm:py-0">
+    <div className="container mx-auto px-0 sm:px-4 py-5 sm:py-0">
       <div className="max-w-4xl mx-auto">
         <div>
           <h1 className="text-xl sm:text-2xl font-semibold sm:font-bold text-gray-800">
@@ -103,7 +103,7 @@ const UpdatePasswordPage = () => {
 
         <form onSubmit={handleSubmit} className="grid gap-4">
           {/* Current Password */}
-          <div className="grid gap-2 max-w-[30rem]">
+          <div className="grid gap-2 max-w-[22rem]">
             <Label htmlFor="currentPassword" className="text-gray-700">
               Current Password
             </Label>
@@ -113,6 +113,8 @@ const UpdatePasswordPage = () => {
                 required
                 id="currentPassword"
                 name="currentPassword"
+                placeholder="Enter your password"
+                className="border-gray-300"
                 value={formData.currentPassword}
                 onChange={handleInputChange}
               />
@@ -134,7 +136,7 @@ const UpdatePasswordPage = () => {
           </div>
 
           {/* New Password */}
-          <div className="grid gap-2 max-w-[30rem]">
+          <div className="grid gap-2 max-w-[22rem]">
             <Label htmlFor="newPassword" className="text-gray-700">
               New Password
             </Label>
@@ -144,6 +146,8 @@ const UpdatePasswordPage = () => {
                 required
                 id="newPassword"
                 name="newPassword"
+                placeholder="New Password"
+                className="border-gray-300"
                 value={formData.newPassword}
                 onChange={handleInputChange}
               />
@@ -165,7 +169,7 @@ const UpdatePasswordPage = () => {
           </div>
 
           {/* Confirm Password */}
-          <div className="grid gap-2 max-w-[30rem]">
+          <div className="grid gap-2 max-w-[22rem]">
             <Label htmlFor="confirmNewPassword" className="text-gray-700">
               Confirm Password
             </Label>
@@ -175,6 +179,8 @@ const UpdatePasswordPage = () => {
                 required
                 id="confirmNewPassword"
                 name="confirmNewPassword"
+                placeholder="Confirm New Password"
+                className="border-gray-300"
                 value={formData.confirmNewPassword}
                 onChange={handleInputChange}
               />
@@ -197,16 +203,16 @@ const UpdatePasswordPage = () => {
 
           {isError && <div className="text-red-500">{error.message}</div>}
 
-          <div className="mt-4">
+          <div className="mt-2">
             {isPending ? (
-              <LoadingSpinner content={"Updating..."} width="w-full sm:w-40" />
+              <LoadingSpinner content={"Updating..."} width="w-full sm:w-44" />
             ) : (
               <Button
                 type="submit"
-                className="w-full sm:w-40"
+                className="w-full sm:w-44"
                 disabled={isPending}
               >
-                Update
+                Update Password
               </Button>
             )}
           </div>
