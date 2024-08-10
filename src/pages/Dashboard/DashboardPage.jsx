@@ -205,9 +205,9 @@ const DashboardPage = () => {
             </Link>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
               {skills && skills.length > 0 ? (
-                skills.slice(0, 6).map((skill) => (
+                skills.slice(0, 8).map((skill) => (
                   <div
                     key={skill._id}
                     className="flex flex-col items-center justify-center px-2 py-2 sm:p-4 border rounded-md shadow-sm"
@@ -215,7 +215,7 @@ const DashboardPage = () => {
                     <img
                       src={skill?.svg && skill.svg.url}
                       alt={skill.name}
-                      className="w-16 h-16 object-contain mb-2 rounded-full"
+                      className="w-16 h-16 object-contain mb-2"
                     />
                     <h3 className="text-sm sm:text-lg font-semibold">
                       {skill.name}

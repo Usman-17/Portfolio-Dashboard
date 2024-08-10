@@ -20,6 +20,7 @@ const Header = () => {
           alt="Profile Image"
           className="w-12 h-12 rounded-full object-contain border border-gray-300 p-0.5 max-[900px]:hidden"
           loading="lazy"
+          decoding="async"
         />
         <h1 className="text-2xl hidden sm:flex">{authUser?.fullName}</h1>
       </div>

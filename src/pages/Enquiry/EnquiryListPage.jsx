@@ -80,7 +80,7 @@ const EnquiryListPage = () => {
               </p>
             </div>
 
-            <Link to="/dashboard">
+            <Link to="/">
               <Button className="w-fit gap-2 text-xs sm:text-sm">
                 <Undo size={18} />
                 Return To Dashboard
