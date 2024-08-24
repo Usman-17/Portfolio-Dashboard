@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/"
+      "source": "/api/(.*)",
+      "destination": "https://portfolio-backend-2nog.onrender.com/api/$1"
     }
   ]
 }
