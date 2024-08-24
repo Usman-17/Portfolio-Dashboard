@@ -3,6 +3,10 @@
     {
       "source": "/api/(.*)",
       "destination": "https://portfolio-backend-2nog.onrender.com/api/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
