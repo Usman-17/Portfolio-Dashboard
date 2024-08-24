@@ -49,7 +49,11 @@ const DashboardPage = () => {
                 </CardDescription>
               </CardHeader>
               <CardFooter>
-                <Link to="/" className="w-fit">
+                <Link
+                  to="https://muhammadusman-portfolio.vercel.app/"
+                  target="_blank"
+                  className="w-fit"
+                >
                   <Button className="gap-1 text-xs sm:text-sm">
                     <Undo size={18} />
                     Visit Portfolio

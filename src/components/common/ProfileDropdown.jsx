@@ -54,7 +54,7 @@ const ProfileDropdown = ({ authUser }) => {
             </DropdownMenuItem>
           </Link>
 
-          <Link to={"/Portfolio"}>
+          <Link to="https://muhammadusman-portfolio.vercel.app/">
             <DropdownMenuItem>
               <Undo className="mr-2 h-4 w-4" />
               <span>Portfolio</span>

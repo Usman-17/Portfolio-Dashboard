@@ -8,7 +8,7 @@ const Header = () => {
   const { data: authUser } = useQuery({ queryKey: ["authUser"] });
 
   return (
-    <header className="sticky lg:static top-0 flex items-center border-b sm:border-0 bg-background px-4 sm:px-6 h-16">
+    <header className="sticky lg:static top-0 flex items-center border-b sm:border-0 bg-background px-4 sm:px-6 h-16 z-50">
       <MobileMenu />
 
       <div className="flex items-center gap-4 sm:ml-16">
