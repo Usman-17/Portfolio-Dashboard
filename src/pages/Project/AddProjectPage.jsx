@@ -19,6 +19,10 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+// Imports End
+
 const AddProjectPage = () => {
   const [formData, setFormData] = useState({
     title: "",
@@ -121,6 +125,13 @@ const AddProjectPage = () => {
     }
   };
 
+  const handleQuillChange = (value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      description: value,
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const formDataToSend = new FormData();
@@ -179,14 +190,11 @@ const AddProjectPage = () => {
               {/* Description */}
               <div className="grid gap-2">
                 <Label className="text-gray-700">Description</Label>
-                <Textarea
-                  id="description"
-                  name="description"
-                  className="h-24 sm:h-32"
-                  placeholder="Enter project description"
-                  required
+                <ReactQuill
                   value={formData.description}
-                  onChange={handleInputChange}
+                  onChange={handleQuillChange}
+                  placeholder="Enter project description"
+                  className="h-48 mb-10"
                 />
               </div>
 

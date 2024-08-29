@@ -1,4 +1,4 @@
-import { Undo } from "lucide-react";
+import { ExternalLink, Undo } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router-dom";
 
@@ -87,13 +87,16 @@ const ViewProjectPage = () => {
               decoding="async"
             />
 
-            <div className="mb-2 sm:mb-3">
-              <h2 className="text-lg font-semibold">Description:</h2>
-              <p className="mt-1 text-gray-700">{project?.description}</p>
+            <div className="mb-4 sm:mb-3">
+              <h2 className="text-xl font-bold text-gray-800">Description</h2>
+              <div
+                className="mt-1 text-gray-700"
+                dangerouslySetInnerHTML={{ __html: project?.description || "" }}
+              />
             </div>
 
             <div className="mb-4 sm:mb-5">
-              <h2 className="text-xl font-bold text-gray-800">Technologies:</h2>
+              <h2 className="text-xl font-bold text-gray-800">Technologies</h2>
               <ul className="mt-2 list-disc list-inside text-gray-700">
                 {project?.technologies?.split(",").map((technology, i) => (
                   <li key={i} className="mb-1 capitalize">
@@ -103,45 +106,47 @@ const ViewProjectPage = () => {
               </ul>
             </div>
 
-            <div className="mb-2 sm:mb-3">
+            <div className="mb-0 sm:mb-1 flex items-center gap-1">
               <h2 className="text-lg font-semibold">Stack:</h2>
-              <p className="mt-1 text-gray-700 uppercase">{project?.stack}</p>
+              <p className="text-base sm:text-lg font-normal text-gray-900 uppercase">
+                {project?.stack}
+              </p>
             </div>
 
-            <div className="mb-2 sm:mb-3">
+            <div className="mb-2 sm:mb-3 flex items-center gap-1">
               <h2 className="text-lg font-semibold">Deployed:</h2>
-              <p className="mt-1 text-gray-700">{project?.deployed}</p>
+              <p className="text-base sm:text-lg font-normal text-gray-900">
+                {project?.deployed}
+              </p>
             </div>
 
-            {project?.gitRepoLink && (
-              <div className="mb-2 flex gap-3 items-center">
-                <h3 className="text-lg font-semibold">GitHub Repository:</h3>
-                <h3 className="mt-1 text-gray-700">
-                  <a
-                    href={project?.gitRepoLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-800"
-                  >
-                    {project?.gitRepoLink}
-                  </a>
-                </h3>
+            {project?.projectLink && (
+              <div className="mb-1 mt-5 sm:mt-3 flex gap-3 items-center">
+                <a
+                  href={project?.projectLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-black hover:text-blue-800 hover:underline"
+                >
+                  <h3 className="text-base font-semibold flex items-center gap-1">
+                    View Project <ExternalLink size={16} />
+                  </h3>
+                </a>
               </div>
             )}
 
-            {project?.projectLink && (
-              <div className="mb-2 sm:mb-3 flex gap-3 items-center">
-                <h3 className="text-lg font-semibold">Project Link:</h3>
-                <h3 className="mt-1 text-gray-700">
-                  <a
-                    href={project?.projectLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-800"
-                  >
-                    {project?.projectLink}
-                  </a>
-                </h3>
+            {project?.gitRepoLink && (
+              <div className="mb-2 flex gap-3 items-center">
+                <a
+                  href={project?.gitRepoLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-black hover:text-blue-800 hover:underline"
+                >
+                  <h3 className="text-base font-semibold flex items-center gap-1">
+                    View GitHub Repo <ExternalLink size={16} />
+                  </h3>
+                </a>
               </div>
             )}
           </>
