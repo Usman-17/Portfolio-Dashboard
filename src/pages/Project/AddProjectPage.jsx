@@ -15,12 +15,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select } from "@radix-ui/react-select";
 import { useMutation } from "@tanstack/react-query";
 import { ImageUp, Undo } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
-
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import JoditEditor from "jodit-react";
 // Imports End
 
 const AddProjectPage = () => {
@@ -36,6 +34,7 @@ const AddProjectPage = () => {
   });
 
   const [projectImgPreview, setProjectImgPreview] = useState("");
+  const editor = useRef(null);
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -125,11 +124,8 @@ const AddProjectPage = () => {
     }
   };
 
-  const handleQuillChange = (value) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      description: value,
-    }));
+  const handleDescriptionChange = (newContent) => {
+    setFormData({ ...formData, description: newContent });
   };
 
   const handleSubmit = (e) => {
@@ -190,11 +186,10 @@ const AddProjectPage = () => {
               {/* Description */}
               <div className="grid gap-2">
                 <Label className="text-gray-700">Description</Label>
-                <ReactQuill
+                <JoditEditor
+                  ref={editor}
                   value={formData.description}
-                  onChange={handleQuillChange}
-                  placeholder="Enter project description"
-                  className="h-48 mb-10"
+                  onChange={handleDescriptionChange}
                 />
               </div>
 
